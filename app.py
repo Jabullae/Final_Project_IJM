@@ -32,6 +32,11 @@ import easyocr
 
 # 6st test
 
+# result
+import numpy as np
+from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt 
+
 
  # flask name 선언
 app = Flask(__name__)
@@ -619,6 +624,34 @@ def STT():
 
 @app.route('/result')
 def result():
+    plt.style.use('ggplot')
+    x=np.array([1,2,3,4,5,6])
+    y=np.array([0, 10, 0, 6, 10, 0])
+    z=np.array([0, 2, 7, 2, 5, 9])
+
+    plt.rc('font', family='Malgun Gothic')
+    cubic_interploation_model1=interp1d(x,y,kind=2)
+    cubic_interploation_model2=interp1d(x,z,kind=2)
+    xs=np.linspace(1,6,500)
+    ys=cubic_interploation_model1(xs)
+    zs=cubic_interploation_model2(xs)
+    fig = plt.figure(figsize=(15, 4))
+    ax = fig.add_subplot(1, 1, 1)
+    ax.plot(xs, ys, color = '#3dd7ca', linewidth=0.7, label = '평균')
+    ax.plot(xs, zs, color = '#5a918a', linewidth=0.7, label = '내점수')
+    ax.set_xticks([1, 2, 3, 4, 5, 6])
+    ax.set_yticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    ax.set_xticklabels(['비슷한 그림 \n그리기', '글자 색 \n맞히기', '제시 단어 \n그리기', '다른 그림 찾기', '숫자 순서 \n맞히기', '문장 따라 \n말하기'], 
+                        fontsize=9, alpha = 1)
+    ax.set_yticklabels([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], fontsize=10, alpha = 1)
+    ax.patch.set_facecolor('white')
+    ax.margins(x=0)
+    plt.grid(True, color='gray', alpha=0.15, linestyle='-')
+    plt.fill_between(xs, ys, color='#1eafa3', alpha=0.5)
+    plt.fill_between(xs, zs, color='#5a918a', alpha=0.5)
+    plt.ylim(-0.5, 11)
+    plt.legend(fontsize=12)
+    plt.savefig(f'./static/dashboard/dashboard.jpg', dpi=600)
     return render_template('dashboard.html')
 
 
