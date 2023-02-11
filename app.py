@@ -409,7 +409,7 @@ def get_screenshot():
     random_id = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
     file_name = 'static/5/img/{}.png'.format(random_id)
     im.save(file_name)
-    reader = easyocr.Reader(['ko', 'en'])
+    reader = easyocr.Reader(['ko', 'en'], gpu=False)
     
     with open(file_name,'rb') as pf:
         img = pf.read()
@@ -429,6 +429,7 @@ def get_screenshot():
     conn.commit()
     cursor.close()
     os.remove(file_name)
+    return None
     
 
 
@@ -459,14 +460,10 @@ def sound():
 
 @app.route('/STT', methods=['POST', 'GET'])
 def STT():
-    print('1111111111111111111111')
     String_sound = ''  # 녹음파일 Text
-    print('22222222222222222222')
     String_target = '' # 정답 Text
-    print('333333333333333333')
     sleep(5)
     count = 1
-    print('4444444444444444')
     
     #---------------------------------------------------------------------------
     #      STT Open API
@@ -474,16 +471,11 @@ def STT():
     print('여기까지는 되는거?')
     if request.method == 'POST':
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
-        print('5555555')
         accessKey = "f0f9fd15-daef-4655-b516-d7a9711c696a" 
-        print('6666666')
         audioFilePath = request.files['recode'] # 다운로드한 음성파일을 여기에 넣어서 Text로 바꾸기
 
-        print('777777777')
         # audioFilePath.save('녹음파일.wav')
-        print('888888888')
         languageCode = "korean"
-        print('999999999999')
         #file = open('nefile', "rb")
         #audioContents= wavfile.read("녹음파일.wav") ## !!
         #print(audioContents)
@@ -494,10 +486,8 @@ def STT():
         # inMemoryFile = BytesIO(audioContents)
 
 
-        print('ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ')
         #audioContents = base64.b64encode(file.read()).decode("utf8")
         # audioContents = base64.b64encode(inMemoryFile.getvalue()).decode("utf8")
-        print('ㄴㄴㄴㄴㄴㄴ')
         #file.close()
         
         requestJson = {    
