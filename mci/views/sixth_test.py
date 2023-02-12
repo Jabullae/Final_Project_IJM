@@ -7,7 +7,7 @@ import base64
 
 bp = Blueprint('sixth', __name__, url_prefix='/')
 
-DATABASE_URI = 'mci/ijm.db'
+DATABASE_URI = 'ijm.db'
 
 sound_target = '강아지가 방에 들어오면 고양이는 의자 밑에 숨는다' # 정답Text
 print(sound_target)

@@ -74,7 +74,7 @@ def wrong_img():
 @bp.route('/end',  methods=['POST','GET'])
 def end():
     # DB 저장 
-    conn = sqlite3.connect('mci/ijm.db', isolation_level=None)
+    conn = sqlite3.connect('ijm.db', isolation_level=None)
     # 커서
     cursor = conn.cursor()
     # 테이블 생성(데이터 타입 = TEST, NUMERIC, INTEGER, REAL, BLOB(image) 등)
@@ -101,4 +101,4 @@ def end():
     conn.commit()
     cursor.close()
     conn.close() 
-    return render_template('4-2_test.html')
+    return render_template('5th_test.html')
