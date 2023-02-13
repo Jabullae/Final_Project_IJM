@@ -4,6 +4,18 @@ bp = Blueprint('result', __name__, url_prefix='/')
 
 @bp.route('/result')
 def result():
+    import sqlite3
+    conn = sqlite3.connect('ijm.db', isolation_level=None)
+    # 커서
+    c = conn.cursor()
+    a = ['sim','stroop','text_write', 'wrong_test', 'remember','STT']
+    sql = []
+    for i in range(len(a)):
+        print(i)
+    c.execute("SELECT * FROM "+a[i])
+    db =c.fetchone()
+    sql.append(db)
+    print(db)
     # 1. 맞으면 10점 틀리면 0점
     # 2. 개당 1점 
     # 3. 0.1 -> 1점...?? 이건 이야기 해봐야 할듯

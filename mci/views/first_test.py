@@ -42,7 +42,7 @@ def image_similarity():
         guest = str(session['guest'])
         image = request.files["image"]
         # Save image_binary to a file or a variable
-        img_path = 'mci/static/drawing/sim/' + guest + '.png'
+        img_path = 'drawing/sim/' + guest + '.png'
         image.save(img_path)
         print('222222222222222222')
         global anch
@@ -72,7 +72,7 @@ def image_similarity():
 
     # DB 생성 / 이미 있으면 나중에 주석처리하기.
     # isolation_level = None (auto commit)
-    conn = sqlite3.connect('mci/ijm.db', isolation_level=None)
+    conn = sqlite3.connect('ijm.db', isolation_level=None)
     # 커서
     cursor = conn.cursor()
     # 테이블 생성(데이터 타입 = TEST, NUMERIC, INTEGER, REAL, BLOB(image) 등)

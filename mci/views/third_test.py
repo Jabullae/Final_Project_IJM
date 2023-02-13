@@ -24,7 +24,7 @@ def predict():
         image = request.files["image"]
         # Save image_binary to a file or a variable
         guest = str(session['guest'])
-        img_path = 'mci/static/drawing/txt_to_img/' + guest + '.png'
+        img_path = 'drawing/txt_to_img/' + guest + '.png'
         image.save(img_path)
 
 
@@ -73,7 +73,7 @@ def predict():
 
     # DB 생성 / 이미 있으면 나중에 주석처리하기.
     # isolation_level = None (auto commit)
-    conn = sqlite3.connect('mci/ijm.db', isolation_level=None)
+    conn = sqlite3.connect('ijm.db', isolation_level=None)
     # 커서
     cursor = conn.cursor()
     # 테이블 생성(데이터 타입 = TEST, NUMERIC, INTEGER, REAL, BLOB(image) 등)
